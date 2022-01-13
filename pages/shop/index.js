@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../context/Context";
+import { useRouter } from "next/router";
 
 import { getProducts } from "../../graphql/queries/product";
 import { useQuery } from "@apollo/react-hooks";
 
 const ShopPage = () => {
+  const router = useRouter();
+  const userCtx = useContext(UserContext);
   const { loading, error, data } = useQuery(getProducts);
 
   if (loading) {
@@ -15,12 +19,17 @@ const ShopPage = () => {
     return null;
   }
 
-  console.log(data);
-
   return (
     <div className="shop__grid">
       {data.getProducts.map((product) => (
-        <div className="product__card" key={product.id}>
+        <div
+          className="product__card"
+          key={product.id}
+          onClick={() => {
+            userCtx.addCartHandler(product);
+            router.push("/shop/checkout");
+          }}
+        >
           {product.title}: {product.price} euros
         </div>
       ))}

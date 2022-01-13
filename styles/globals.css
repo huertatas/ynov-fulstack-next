@@ -165,6 +165,7 @@ a {
   align-items: center;
   padding: 10px;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .checkout-container {
@@ -182,6 +183,18 @@ a {
   border-radius: 20px;
   padding: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-part {
+  height: 80%;
+  padding: 10px;
+}
+
+.button-part {
+  height: 20%;
+  padding: 10px;
 }
 
 .cart {

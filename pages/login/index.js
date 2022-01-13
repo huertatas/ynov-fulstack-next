@@ -23,7 +23,6 @@ function LoginPage() {
 
   const handleInscription = async (e) => {
     e.preventDefault();
-    console.log(mail, password);
 
     const body = {
       email: mail,
@@ -39,9 +38,7 @@ function LoginPage() {
     })
       .then((res) => {
         res.json().then((data) => {
-          // console.log("id--");
-          console.log(data.id);
-          // localStorage.setItem("token", data.token);
+          console.log(data);
           useCtx.putToken(data.token);
           useCtx.putUserId(data.id);
           router.push("/profil");

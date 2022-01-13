@@ -4,7 +4,7 @@ import style from "./Footer.module.css";
 function Footer() {
   return (
     <footer>
-      <a className={style["footer-container"]}>footer</a>
+      <a className={style["footer-container"]}></a>
     </footer>
   );
 }

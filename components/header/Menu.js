@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import style from "./Menu.module.css";
 import Link from "next/link";
 import { UserContext } from "../../context/Context";
+import router from "next/router";
 
 function Menu() {
   const useCtx = useContext(UserContext);
@@ -10,8 +11,6 @@ function Menu() {
   useEffect(() => {
     setTokenKey(useCtx.userToken);
   }, [useCtx.userToken]);
-
-  console.log(useCtx);
 
   return (
     <nav className={style["link_header"]}>
@@ -23,6 +22,7 @@ function Menu() {
         <h2
           onClick={() => {
             useCtx.deleteToken();
+            router.push("/");
           }}
           className={style.logout}
         >

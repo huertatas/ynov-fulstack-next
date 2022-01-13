@@ -52,8 +52,7 @@ function RegisterPage() {
     })
       .then((res) => {
         res.json().then((data) => {
-          // console.log("id--");
-          // console.log(data.id);
+     
           // localStorage.setItem("token", data.token);
           useCtx.putToken(data.token);
           useCtx.putUserId(data.id);

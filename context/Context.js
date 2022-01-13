@@ -6,6 +6,7 @@ export const UserContext = React.createContext();
 function Context(props) {
   const [userToken, setUserToken] = useState("");
   const [userId, setUserId] = useState("");
+  const [cart, setCart] = useState({});
 
   const putToken = (token) => {
     localStorage.setItem("token", token);
@@ -14,6 +15,7 @@ function Context(props) {
 
   const deleteToken = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     setUserToken("");
     toast.success("deconnecté");
   };
@@ -23,24 +25,31 @@ function Context(props) {
     setUserId(id);
   };
 
+  console.log("---+++---");
+
+  console.log(userId);
+
+  const addCartHandler = (product) => {
+    setCart(product);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const id = localStorage.getItem("userId");
     if (token) {
       setUserToken(token);
-      const id = localStorage.getItem("userId");
       setUserId(id);
     }
   }, [userToken]);
 
-  console.log("context");
-  console.log(userToken);
-
   const funcUser = {
     userId,
     userToken,
+    cart,
     putToken,
     deleteToken,
     putUserId,
+    addCartHandler,
   };
 
   return (
