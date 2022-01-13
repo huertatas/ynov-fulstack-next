@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { UserContext } from "../../context/Context";
 
-function withAuth(WrappedComponent) {
+function WithAuth(WrappedComponent) {
   return (props) => {
     const userCtx = useContext(UserContext);
 
@@ -13,4 +13,4 @@ function withAuth(WrappedComponent) {
   };
 }
 
-export default withAuth;
+export default WithAuth;

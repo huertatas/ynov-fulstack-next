@@ -58,7 +58,7 @@ function LoginPage() {
     if (token) {
       router.push("/profil");
     }
-  }, []);
+  }, [router, useCtx]);
 
   return (
     <>
