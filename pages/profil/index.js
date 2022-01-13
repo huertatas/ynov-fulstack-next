@@ -41,7 +41,6 @@ function ProfilePage() {
 
     fetch(`${process.env.API_URL}api/v1/update/${userCtx.userId}`, {
       method: "PUT",
-      mode: "no-cors",
       headers: {
         "Content-type": "application/json",
         authorization: `${userCtx.userToken}`,
@@ -63,7 +62,7 @@ function ProfilePage() {
         headers: {
           authorization: `${userCtx.userToken}`,
         },
-        mode: "no-cors",
+    
       })
         .then((res) => {
           res.json().then((data) => {
