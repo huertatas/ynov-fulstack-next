@@ -30,11 +30,10 @@ function LoginPage() {
       password: password,
     };
 
-    fetch(`${process.env.API_URL}api/v1/login`, {
+    fetch(`${process.env.API_URL}api/v1/users/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     })
