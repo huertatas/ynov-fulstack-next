@@ -84,7 +84,7 @@ function LoginPage() {
         />
       </Form>
       <h4>
-        Vous êtes nouveau ? <Link href="/register">s'inscrire</Link>
+        Vous êtes nouveau ? <Link href="/register">s&apos;inscrire</Link>
       </h4>
     </>
   );
