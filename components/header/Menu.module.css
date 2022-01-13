@@ -1,0 +1,17 @@
+.link_header a {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.link_header {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout {
+  color: red;
+  font-size: 13px;
+  cursor: pointer;
+}
