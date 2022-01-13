@@ -3,7 +3,6 @@ import { UserContext } from "../../context/Context";
 import Form from "../../components/login/Form";
 import Input from "../../components/input/Input";
 import toast from "react-hot-toast";
-import withAuth from "../../components/HEC/withAuth";
 
 function ProfilePage() {
   const userCtx = useContext(UserContext);
@@ -121,4 +120,4 @@ function ProfilePage() {
   );
 }
 
-export default withAuth(ProfilePage);
+export default ProfilePage;
