@@ -32,6 +32,7 @@ function LoginPage() {
 
     fetch(`${process.env.API_URL}api/v1/login`, {
       method: "POST",
+      mode: 'no-cors',
       headers: {
         "Content-type": "application/json",
         // Authorization: `Bearer ${token}`,
