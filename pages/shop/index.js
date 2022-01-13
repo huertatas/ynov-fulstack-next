@@ -3,7 +3,7 @@ import React from "react";
 import { getProducts } from "../../graphql/queries/product";
 import { useQuery } from "@apollo/react-hooks";
 
-const Index = () => {
+const ShopPage = () => {
   const { loading, error, data } = useQuery(getProducts);
 
   if (loading) {
@@ -28,4 +28,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default ShopPage;

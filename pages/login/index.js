@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { UserContext } from "../../context/Context";
 import toast from "react-hot-toast";
 
-function login() {
+function LoginPage() {
   const router = useRouter();
   const useCtx = useContext(UserContext);
 
@@ -90,4 +90,4 @@ function login() {
   );
 }
 
-export default login;
+export default LoginPage;

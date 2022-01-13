@@ -6,7 +6,7 @@ import Link from "next/link";
 import { UserContext } from "../../context/Context";
 import toast from "react-hot-toast";
 
-function index() {
+function RegisterPage() {
   const router = useRouter();
   const useCtx = useContext(UserContext);
 
@@ -115,4 +115,4 @@ function index() {
   );
 }
 
-export default index;
+export default RegisterPage;

@@ -5,7 +5,7 @@ import Input from "../../components/input/Input";
 import toast from "react-hot-toast";
 import withAuth from "../../components/HEC/withAuth";
 
-function index() {
+function ProfilePage() {
   const userCtx = useContext(UserContext);
   const [userProfile, setUserProfile] = useState("");
 
@@ -121,4 +121,4 @@ function index() {
   );
 }
 
-export default withAuth(index);
+export default withAuth(ProfilePage);
