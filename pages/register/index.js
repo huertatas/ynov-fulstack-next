@@ -10,6 +10,8 @@ function RegisterPage() {
   const router = useRouter();
   const useCtx = useContext(UserContext);
 
+  const urlUsers = "/users/";
+
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -42,17 +44,16 @@ function RegisterPage() {
       isAdmin: false,
     };
 
-    fetch(`${process.env.API_URL}api/v1${urlUsers}registergfhjgjghkjgh`, {
+    fetch(`${process.env.API_URL}api/v1${urlUsers}register`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-  
+
       body: JSON.stringify(body),
     })
       .then((res) => {
         res.json().then((data) => {
-     
           // localStorage.setItem("token", data.token);
           useCtx.putToken(data.token);
           useCtx.putUserId(data.id);

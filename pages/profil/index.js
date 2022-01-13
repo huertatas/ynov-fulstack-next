@@ -8,6 +8,8 @@ function ProfilePage() {
   const userCtx = useContext(UserContext);
   const [userProfile, setUserProfile] = useState("");
 
+  const urlUsers = "/users/";
+
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
