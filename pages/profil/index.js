@@ -39,7 +39,7 @@ function ProfilePage() {
       password: password,
     };
 
-    fetch(`${process.env.API_URL}api/v1/users/update-user/${userCtx.userId}`, {
+    fetch(`${process.env.API_URL}api/v1${urlUsers}update-user/${userCtx.userId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -58,7 +58,7 @@ function ProfilePage() {
 
   useEffect(() => {
     if (userCtx.userToken) {
-      fetch(`${process.env.API_URL}api/v1/users/get-user/${userCtx.userId}`, {
+      fetch(`${process.env.API_URL}api/v1${urlUsers}get-user/${userCtx.userId}`, {
         headers: {
           authorization: `${userCtx.userToken}`,
         },

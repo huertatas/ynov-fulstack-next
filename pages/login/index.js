@@ -10,6 +10,8 @@ function LoginPage() {
   const router = useRouter();
   const useCtx = useContext(UserContext);
 
+  const urlUsers = "/users/";
+
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,8 +30,8 @@ function LoginPage() {
       email: mail,
       password: password,
     };
-    //marche weshhhh
-    fetch(`${process.env.API_URL}api/v1/users/login`, {
+
+    fetch(`${process.env.API_URL}api/v1${urlUsers}login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

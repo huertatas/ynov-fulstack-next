@@ -42,7 +42,7 @@ function RegisterPage() {
       isAdmin: false,
     };
 
-    fetch(`${process.env.API_URL}api/v1/users/register`, {
+    fetch(`${process.env.API_URL}api/v1${urlUsers}register`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
