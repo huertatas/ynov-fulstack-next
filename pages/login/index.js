@@ -40,11 +40,13 @@ function LoginPage() {
     })
       .then((res) => {
         res.json().then((data) => {
-          console.log(data);
+          if (data.id === undefined) {
+            toast.error("profil non existant");
+            return;
+          }
           useCtx.putToken(data.token);
           useCtx.putUserId(data.id);
           router.push("/profil");
-          toast.success("connecté");
         });
       })
       .catch((e) => e.message);
