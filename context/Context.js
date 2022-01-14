@@ -6,7 +6,7 @@ export const UserContext = React.createContext();
 function Context(props) {
   const [userToken, setUserToken] = useState("");
   const [userId, setUserId] = useState("");
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState([]);
 
   const putToken = (token) => {
     localStorage.setItem("token", token);
@@ -26,12 +26,28 @@ function Context(props) {
   };
 
   console.log("---+++---");
-
-  console.log(userId);
+  console.log(cart);
 
   const addCartHandler = (product) => {
-    setCart(product);
-    localStorage.setItem("cart", JSON.stringify(product));
+    if (cart.filter((e) => e.id === product.id).length > 0) {
+      return;
+    }
+
+    cart.push(product);
+    const newCart = [...cart];
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+  };
+
+  //probleme avec delete, ça delete pas
+
+  const deleteCartHandler = (product) => {
+    cart.filter((el) => {
+      return el !== product.id;
+    });
+    const newCart = [...cart];
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   useEffect(() => {
@@ -43,7 +59,6 @@ function Context(props) {
       setCart(parsedCart);
     }
 
-    console.log("passe dans useEffect");
     if (token) {
       setUserToken(token);
       setUserId(id);
@@ -58,6 +73,7 @@ function Context(props) {
     deleteToken,
     putUserId,
     addCartHandler,
+    deleteCartHandler,
   };
 
   return (

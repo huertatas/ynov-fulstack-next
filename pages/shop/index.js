@@ -27,7 +27,6 @@ const ShopPage = () => {
           key={product.id}
           onClick={() => {
             userCtx.addCartHandler(product);
-            router.push("/shop/checkout");
           }}
         >
           {product.title}: {product.price} euros

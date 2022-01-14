@@ -22,13 +22,25 @@ function Checkout() {
     }
   };
 
+  console.log("---");
+  console.log(userCtx.cart);
+  console.log("---");
+
   return (
     <div className="checkout-container">
       <div className="checkout-block">
         <div className="product-part">
-          {userCtx.cart.title
-            ? `${userCtx.cart.title}: ${userCtx.cart.price} euros`
-            : "votre panier est vide"}
+          {userCtx.cart.length === 0 && "panier vide"}
+          {userCtx.cart.map((el) => {
+            return (
+              <div
+                key={el.id}
+                onClick={userCtx.deleteCartHandler.bind(null, el)}
+              >
+                {el.title}: {el.price}
+              </div>
+            );
+          })}
         </div>
         <div className="button-part">
           <button
