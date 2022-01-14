@@ -31,11 +31,19 @@ function Context(props) {
 
   const addCartHandler = (product) => {
     setCart(product);
+    localStorage.setItem("cart", JSON.stringify(product));
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const id = localStorage.getItem("userId");
+    const cart = localStorage.getItem("cart");
+    if (cart) {
+      const parsedCart = JSON.parse(cart);
+      setCart(parsedCart);
+    }
+
+    console.log("passe dans useEffect");
     if (token) {
       setUserToken(token);
       setUserId(id);
