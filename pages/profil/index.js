@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 function ProfilePage() {
   const userCtx = useContext(UserContext);
   const [userProfile, setUserProfile] = useState("");
+  const [userOrders, setUserOrders] = useState("");
 
   const urlUsers = "/users/";
 
@@ -41,14 +42,17 @@ function ProfilePage() {
       password: password,
     };
 
-    fetch(`${process.env.API_URL}api/v1${urlUsers}update-user/${userCtx.userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `${userCtx.userToken}`,
-      },
-      body: JSON.stringify(body),
-    })
+    fetch(
+      `${process.env.API_URL}api/v1${urlUsers}update-user/${userCtx.userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          authorization: `${userCtx.userToken}`,
+        },
+        body: JSON.stringify(body),
+      }
+    )
       .then((res) => {
         res.json().then((data) => {
           toast.success(`profil mis à jours`);
@@ -60,17 +64,36 @@ function ProfilePage() {
 
   useEffect(() => {
     if (userCtx.userToken) {
-      fetch(`${process.env.API_URL}api/v1${urlUsers}get-user/${userCtx.userId}`, {
-        headers: {
-          authorization: `${userCtx.userToken}`,
-        },
-      })
+      fetch(
+        `${process.env.API_URL}api/v1${urlUsers}get-user/${userCtx.userId}`,
+        {
+          headers: {
+            authorization: `${userCtx.userToken}`,
+          },
+        }
+      )
         .then((res) => {
           res.json().then((data) => {
             setUserProfile(data);
           });
         })
         .catch((e) => e.message);
+
+      fetch(
+        `${process.env.API_URL}api/v1${urlUsers}user-orders/${userCtx.userId}`,
+        {
+          headers: {
+            authorization: `${userCtx.userToken}`,
+          },
+        }
+      )
+        .then((res) => {
+          res.json().then((data) => {
+            setUserOrders(data);
+            console.log("-->>> ses orders: ", data);
+          });
+        })
+        .catch((e) => console.log("bug -->", e.message));
     }
   }, [userCtx]);
 
@@ -117,6 +140,18 @@ function ProfilePage() {
       <div>
         {userProfile &&
           `${userProfile.firstName} | ${userProfile.lastName} | ${userProfile.email} `}
+      </div>
+
+      <div>
+        User orders: {" "}
+        {userOrders ?
+          userOrders.orders.map((el) => {
+            return (
+              <span key={el._id}>
+                {el.amount} <br />
+              </span>
+            );
+          }) : "aucune commande"}
       </div>
     </>
   );

@@ -1,12 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserContext } from "../../context/Context";
 
 function Cart() {
   const userCtx = useContext(UserContext);
+  const [count, setCount] = useState(0);
 
-  console.log(userCtx.cart.length);
+  useEffect(() => {
+    let countHolder = 0;
+
+    userCtx.cart.map((el) => {
+      countHolder = countHolder + el.qty;
+    });
+
+    setCount(countHolder);
+  }, [userCtx]);
 
   return (
     <>
@@ -19,7 +28,7 @@ function Cart() {
           width={50}
         ></Image>
       </Link>
-      <div>{userCtx.cart.length}</div>
+      <div>{count}</div>
     </>
   );
 }

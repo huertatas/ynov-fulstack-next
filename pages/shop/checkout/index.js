@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/Context";
 import { loadStripe } from "@stripe/stripe-js";
 import stripeService from "../../../services/stripe.service";
@@ -9,11 +9,21 @@ const stripePromise = loadStripe(
 
 function Checkout() {
   const userCtx = useContext(UserContext);
+  const [totalCost, setTotalCost] = useState(0);
 
   const handleConfirmation = async () => {
+    const token = localStorage.getItem("token");
+    let cart = [{ totalCost: totalCost }, { user: userCtx.userId }];
+
+    userCtx.cart.map((el) => {
+      cart.push(el);
+    });
+
+    console.log(cart);
+
     try {
       const stripe = await stripePromise;
-      const response = await stripeService.createSession(userCtx.cart);
+      const response = await stripeService.createSession(token, cart);
       await stripe.redirectToCheckout({
         sessionId: response.id,
       });
@@ -22,9 +32,16 @@ function Checkout() {
     }
   };
 
-  console.log("---");
-  console.log(userCtx.cart);
-  console.log("---");
+  useEffect(() => {
+    if (userCtx.cart.length > 0) {
+      let tot = 0;
+      userCtx.cart.map((el) => {
+        tot = tot + el.tot;
+      });
+
+      setTotalCost(tot);
+    }
+  }, [userCtx]);
 
   return (
     <div className="checkout-container">
@@ -33,22 +50,37 @@ function Checkout() {
           {userCtx.cart.length === 0 && "panier vide"}
           {userCtx.cart.map((el) => {
             return (
-              <div
-                key={el.id}
-                onClick={userCtx.deleteCartHandler.bind(null, el)}
-              >
-                {el.title}: {el.price}
-              </div>
+              <>
+                <div
+                  key={el.id}
+                  onClick={() => {
+                    userCtx.deleteCartHandler(el);
+                  }}
+                  className="products-checkout"
+                >
+                  {el.title}: {el.price}€ x {el.qty}
+                </div>
+                <button
+                  onClick={() => {
+                    userCtx.incrementQtyCartHandler(el);
+                  }}
+                >
+                  +
+                </button>
+                <button
+                  onClick={() => {
+                    userCtx.decrementQtyCartHandler(el);
+                  }}
+                >
+                  -
+                </button>
+              </>
             );
           })}
         </div>
         <div className="button-part">
-          <button
-            onClick={handleConfirmation}
-            disabled={userCtx.cart.title ? false : true}
-          >
-            payer
-          </button>
+          <h3>total price: {totalCost}</h3>
+          <button onClick={handleConfirmation}>payer</button>
         </div>
       </div>
     </div>
