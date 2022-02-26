@@ -33,8 +33,9 @@ function Login() {
           }
           useCtx.putToken(data.token);
           useCtx.putUserId(data.id);
+          useCtx.handleSetSubType(data.type_sub);
           toast("connecté");
-          // router.push("/profil");
+          router.push("/");
         });
       })
       .catch((e) => e.message);

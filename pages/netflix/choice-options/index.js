@@ -7,6 +7,14 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { UserContext } from "../../../context/Context";
 import toast from "react-hot-toast";
 
+import { loadStripe } from "@stripe/stripe-js";
+
+import { Elements } from "@stripe/react-stripe-js";
+
+export const stripePromise = loadStripe(
+  "pk_test_51KHlqyAw1gIXHZCzDqsbPPbFIw0pOGB5qOwjJEKGK6U48K2pVggB4eOoDpBk936flMAF6OYZ0J27J8fjkccCJYu800KV1pgGx2"
+);
+
 function Options() {
   const useCtx = useContext(UserContext);
 
@@ -97,7 +105,8 @@ function Options() {
           useCtx.putToken(data.token);
           useCtx.putUserId(data.id);
           console.log("idMongo ->", data.id);
-          toast.success("connecté");
+          useCtx.handleSetSubType(data.type_sub);
+          toast.success("Création du compte réussis");
           let objSub = {
             plan: planNetflix,
             payment_method: "",
@@ -160,4 +169,14 @@ function Options() {
   );
 }
 
-export default Options;
+function NetflixFinalizationPage() {
+  return (
+    <>
+      <Elements stripe={stripePromise}>
+        <Options />
+      </Elements>
+    </>
+  );
+}
+
+export default NetflixFinalizationPage;

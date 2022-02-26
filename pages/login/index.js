@@ -46,7 +46,8 @@ function LoginPage() {
           }
           useCtx.putToken(data.token);
           useCtx.putUserId(data.id);
-          router.push("/profil");
+          useCtx.handleSetSubType(data.type_sub);
+          router.push("/");
         });
       })
       .catch((e) => e.message);

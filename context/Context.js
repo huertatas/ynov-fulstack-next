@@ -7,6 +7,7 @@ function Context(props) {
   const [userToken, setUserToken] = useState("");
   const [userId, setUserId] = useState("");
   const [cart, setCart] = useState([]);
+  const [subType, setSubType] = useState("");
 
   // NETFLIX PART //
 
@@ -97,6 +98,10 @@ function Context(props) {
     }
   };
 
+  const handleSetSubType = (type) => {
+    setSubType(type);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const id = localStorage.getItem("userId");
@@ -118,6 +123,7 @@ function Context(props) {
     cart,
     mailNetflix,
     passwordNetflix,
+    subType,
     putToken,
     deleteToken,
     putUserId,
@@ -127,6 +133,7 @@ function Context(props) {
     decrementQtyCartHandler,
     handleSetMailNetflix,
     handleSetPasswordNetflix,
+    handleSetSubType,
   };
 
   console.log("cart");
