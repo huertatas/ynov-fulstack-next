@@ -133,6 +133,7 @@ body {
   margin: 0;
   font-family: "Ubuntu", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: black;
 }
 
 a {
@@ -347,6 +348,8 @@ a {
   height: 68px;
   color: white;
   font-size: 1rem;
+  background-color: black;
+  z-index: 50;
   .div-left-header {
     display: flex;
     align-items: center;
@@ -380,6 +383,7 @@ a {
       justify-content: center;
       align-items: center;
       position: relative;
+      cursor: pointer;
     }
     .search {
       height: 25px;
@@ -408,32 +412,159 @@ a {
   background-color: black;
   .main--homepage-net {
     height: 95vh;
+    background-image: url("https://occ-0-1723-1722.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABa7Ms8F4BrOsuA_zxQJpYADvq56RUhlAOveiuB-bY6WrqAKDS33GmZcdRXcHXN1DWD_4u5AoI3owy6ZYn1xzdwrUmKBH.jpg?r=5eb");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button-home {
+      position: absolute;
+      bottom: 280px;
+      left: 60px;
+      width: 128px;
+      height: 37px;
+    }
+    .img-bck {
+      width: 100%;
+    }
+    .img-bck-title {
+      position: absolute;
+      top: 150px;
+      left: 60px;
+      width: 600px;
+    }
     &.list {
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
       height: 100vh;
+      background: black;
     }
     &.compte {
       color: white;
       height: 100vh;
       padding-top: 100px;
+      background: black;
     }
   }
 
   .slick-contains {
-    overflow: hidden;
     min-height: 150px;
-    background-color: antiquewhite;
     width: 80%;
     margin: auto;
 
     .slick-els {
-      background-color: aqua;
-      height: 200px;
+      min-height: 152px;
+      border-radius: 10px;
+      position: relative;
+      transition: all 1s;
+      width: 223px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin: auto;
+      z-index: 5;
+      .like-watch--contains {
+        position: absolute;
+        bottom: 0;
+        left: 5px;
+        height: 60px;
+        width: 100px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .back-cta-netflix {
+          padding: 10px;
+          background-color: white;
+          border-radius: 50%;
+        }
+      }
+      .movie-pic {
+        position: absolute;
+        height: 100%;
+      }
+      &.hovering-vid {
+        transform: scale(1.5) !important;
+      }
     }
   }
+}
+
+// .slick-list {
+//   overflow-y: visible !important;
+// }
+
+.container-slide-films {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 80px;
+  .arrow-left--slide {
+    width: 10%;
+    height: 178px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.9391106784510679) 89%
+    );
+  }
+  .arrow-right--slide {
+    width: 10%;
+    height: 178px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.9391106784510679) 89%
+    );
+  }
+}
+
+.modal-youtube {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 51;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  .close-modal {
+    position: fixed !important;
+    right: 45px !important;
+    top: 0px !important;
+    width: 35px;
+    cursor: pointer;
+  }
+}
+
+.video-responsive {
+  overflow: hidden;
+  position: relative;
+  width: 90vw;
+  height: 500px;
+}
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 /* animations */

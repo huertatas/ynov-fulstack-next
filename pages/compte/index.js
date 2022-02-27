@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import HeaderNetflix from "../../components/header/HeaderNetflix";
 import { UserContext } from "../../context/Context";
+import router from "next/router";
+import toast from "react-hot-toast";
 
 function Compte() {
   const useCtx = useContext(UserContext);
@@ -29,6 +31,14 @@ function Compte() {
       <HeaderNetflix />
       <main className="main--homepage-net compte">
         <button onClick={handleUnsubscription}>Annuler l'abonnement</button>
+        <button
+          onClick={() => {
+            useCtx.deleteToken();
+            router.push("/netflix");
+          }}
+        >
+          Se deconnecter
+        </button>
       </main>
     </div>
   );

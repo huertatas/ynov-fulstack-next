@@ -16,12 +16,14 @@ function HeaderNetflix() {
   return (
     <header className="header--layout">
       <div className="div-left-header">
-        <Image
-          src="/Netflixlogo.svg"
-          alt="Netflix Logo"
-          width={90}
-          height={50}
-        />
+        <Link href="/">
+          <Image
+            src="/Netflixlogo.svg"
+            alt="Netflix Logo"
+            width={90}
+            height={50}
+          />
+        </Link>
         <ul>
           <li>
             <Link href="/list">Ma liste</Link>
@@ -48,14 +50,16 @@ function HeaderNetflix() {
               </div>
             )}
           </li>
-          <li className="img">
-            <Image
-              src="/profile-netflix.jpg"
-              alt="Netflix profile pic"
-              layout="fill"
-              objectFit="contain"
-            />
-          </li>
+          <Link href="/compte">
+            <li className="img">
+              <Image
+                src="/profile-netflix.jpg"
+                alt="Netflix profile pic"
+                layout="fill"
+                objectFit="contain"
+              />
+            </li>
+          </Link>
         </ul>
       </div>
     </header>
