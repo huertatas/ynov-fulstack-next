@@ -1,6 +1,6 @@
 import HeaderNetflix from "../components/header/HeaderNetflix";
 import Slider from "react-slick";
-import { useEffect, useState, useRef, useContext, useCallback } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import CardNetflixElement from "../components/cardNetflix/CardNetflixElement";
 import Image from "next/image";
 import { UserContext } from "../context/Context";
@@ -70,7 +70,7 @@ export default function Home() {
     };
   }
 
-  const handleFetchStandardFilm = useCallback(() => {
+  const handleFetchStandardFilm = () => {
     const token = useCtx.userToken;
     if (!token) {
       console.log(token);
@@ -95,9 +95,9 @@ export default function Home() {
         console.log(e.message);
         setNotAllowedPrenium(true);
       });
-  }, []);
+  };
 
-  const handleFetchPreniumFilm = useCallback(() => {
+  const handleFetchPreniumFilm = () => {
     const token = useCtx.userToken;
 
     if (!token) {
@@ -123,7 +123,7 @@ export default function Home() {
         console.log(e.message);
         setNotAllowedPrenium(true);
       });
-  }, []);
+  };
 
   const gotoNextStandart = () => {
     SlideStandard.current.slickNext();
