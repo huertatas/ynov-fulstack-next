@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useContext } from "react";
 import CardNetflixElement from "../components/cardNetflix/CardNetflixElement";
 import Image from "next/image";
 import { UserContext } from "../context/Context";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const [filmStandardArr, setFilmStandardArr] = useState([]);
@@ -11,7 +12,12 @@ export default function Home() {
   const [modalYoutube, setModalYoutube] = useState(false);
   const [idYoutube, setIdYoutube] = useState("");
 
+  const [notAllowedPrenium, setNotAllowedPrenium] = useState(true);
+  const [notAllowedStandard, setNotAllowedStandard] = useState(true);
+
   const useCtx = useContext(UserContext);
+
+  console.log(useCtx.subType, "subType");
 
   const SlideStandard = useRef(null);
   const SlidePrenium = useRef(null);
@@ -19,7 +25,7 @@ export default function Home() {
   let settingsStandart;
   let settingsPrenium;
 
-  if (filmStandardArr.length > 1) {
+  if (filmStandardArr.length > 2) {
     settingsStandart = {
       infinite: true,
       speed: 500,
@@ -41,7 +47,7 @@ export default function Home() {
     };
   }
 
-  if (filmPreniumArr.length > 1) {
+  if (filmPreniumArr.length > 2) {
     settingsPrenium = {
       infinite: true,
       speed: 500,
@@ -64,21 +70,58 @@ export default function Home() {
   }
 
   const handleFetchStandardFilm = () => {
+    const token = useCtx.userToken;
+    if (!token) {
+      console.log(token);
+      return;
+    }
+
     fetch(`${process.env.API_URL}api/v1/film/standard`, {
       method: "GET",
-    }).then(async (res) => {
-      const recep = await res.json();
-      setFilmStandardArr(recep);
-    });
+      headers: {
+        "Content-type": "application/json",
+        authorization: `${token}`,
+      },
+    })
+      .then(async (res) => {
+        const recep = await res.json();
+        if (recep[0].name) {
+          setNotAllowedStandard(false);
+          setFilmStandardArr(recep);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+        setNotAllowedPrenium(true);
+      });
   };
 
   const handleFetchPreniumFilm = () => {
+    const token = useCtx.userToken;
+
+    if (!token) {
+      console.log(token);
+      return;
+    }
+
     fetch(`${process.env.API_URL}api/v1/film/prenium`, {
       method: "GET",
-    }).then(async (res) => {
-      const recep = await res.json();
-      setFilmPreniumArr(recep);
-    });
+      headers: {
+        "Content-type": "application/json",
+        authorization: `${token}`,
+      },
+    })
+      .then(async (res) => {
+        const recep = await res.json();
+        if (recep[0].name) {
+          setFilmPreniumArr(recep);
+          setNotAllowedPrenium(false);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+        setNotAllowedPrenium(true);
+      });
   };
 
   const gotoNextStandart = () => {
@@ -107,11 +150,18 @@ export default function Home() {
   };
 
   const handleFetchCategoryPrenium = (value) => {
+    const token = useCtx.userToken;
+
+    if (!token) {
+      toast.error("erreur");
+      return;
+    }
+
     fetch(`${process.env.API_URL}api/v1/film/category-prenium`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        // authorization: `${token}`,
+        authorization: `${token}`,
       },
       body: JSON.stringify({ category: value }),
     }).then(async (res) => {
@@ -121,11 +171,18 @@ export default function Home() {
   };
 
   const handleFetchCategoryStandard = (value) => {
+    const token = useCtx.userToken;
+
+    if (!token) {
+      toast.error("erreur");
+      return;
+    }
+
     fetch(`${process.env.API_URL}api/v1/film/category-standard`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        // authorization: `${token}`,
+        authorization: `${token}`,
       },
       body: JSON.stringify({ category: value }),
     }).then(async (res) => {
@@ -135,11 +192,13 @@ export default function Home() {
   };
 
   const handleAddToFavorite = (idFilm) => {
+    const token = useCtx.userToken;
+
     fetch(`${process.env.API_URL}api/v1/users/push-favorite-film`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        // authorization: `${token}`,
+        authorization: `${token}`,
       },
       body: JSON.stringify({
         id: useCtx.userId,
@@ -147,6 +206,7 @@ export default function Home() {
       }),
     }).then(async (res) => {
       const recep = await res.json();
+      toast.success("film ajouté au favoris");
       console.log(recep);
     });
   };
@@ -154,7 +214,16 @@ export default function Home() {
   useEffect(() => {
     handleFetchStandardFilm();
     handleFetchPreniumFilm();
-  }, []);
+  }, [useCtx]);
+
+  if (notAllowedStandard) {
+    return (
+      <div className="main-home">
+        <HeaderNetflix />
+        <div className="not-allowed-div">Accès interdit</div>
+      </div>
+    );
+  }
 
   return (
     <div className="main-home">
@@ -184,10 +253,10 @@ export default function Home() {
       <main className="main--homepage-net">
         <img
           className="img-bck-title"
-          src="https://occ-0-1723-1722.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABfrFxgUvvSq9ekKsNqDfU4OoWkRGUxnWMXC-dCX-8tyWVdAKfTH0UsR6GjryJi-1SNkCRMwmU6tGufNHKcWdMGRfLwROJfChbj1fnU3EM0XgkJeGbHzPJ1yikMt-pKcAweaJTjGJY6c6zAyUuCcDGmfM6rgROwyhZGozdc3SzigO1Q.png?r=5e8"
+          src="https://occ-0-1722-1723.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABVxyNlZxOZWNzyPhNdiwNLtb938ioG01jOx1IaPcqeIDArDXZms0RxXI43oP3LKRBhfFTjso0Bx-jI4YtiSfZqzcIa8rxkx6ZPNuGPmhmC4P4rW96lMbZW93Wsx9pMuU5jYJKvNFzAR4zvcqxDcUjHX2ucDqfkxBzItKo0kL2h0fdg.png?r=990"
         />
         <button
-          onClick={() => handleSetVideoYoutube("ZOl7iOrD31Q")}
+          onClick={() => handleSetVideoYoutube("AjCebKn4iic")}
           className="button-home"
         >
           Regarder
@@ -198,17 +267,23 @@ export default function Home() {
           <Image src="/arrow-left-netflix.svg" width={50} height={50} />
         </div>
         <div className="slick-contains">
-          <h2>
+          <h2 className="option-contains">
             {" "}
-            Single Item{" "}
+            Film standard{" "}
             <select
               onChange={(e) => {
                 handleFetchCategoryStandard(e.currentTarget.value);
               }}
               id="category-standard"
+              className="options"
             >
-              <option value="rien">--Catégories--</option>
-              <option value="scary">Scary</option>
+              <option value="rien">Catégories</option>
+              <option value="scary">Effrayant</option>
+              <option value="suspense">Suspense</option>
+              <option value="thriller">Thriller</option>
+              <option value="romance">Romance</option>
+              <option value="action">Action</option>
+              <option value="comedy">Comédie</option>
             </select>
           </h2>
           <Slider {...settingsStandart} ref={SlideStandard}>
@@ -228,40 +303,49 @@ export default function Home() {
         </div>
       </div>
       {/* prenium */}
-      <div className="container-slide-films">
-        <div className="arrow-left--slide" onClick={() => gotoPrevPrenium()}>
-          <Image src="/arrow-left-netflix.svg" width={50} height={50} />
+
+      {!notAllowedPrenium && (
+        <div className="container-slide-films">
+          <div className="arrow-left--slide" onClick={() => gotoPrevPrenium()}>
+            <Image src="/arrow-left-netflix.svg" width={50} height={50} />
+          </div>
+          <div className="slick-contains">
+            <h2 className="option-contains">
+              {" "}
+              Film Prenium{" "}
+              <select
+                onChange={(e) => {
+                  handleFetchCategoryPrenium(e.currentTarget.value);
+                }}
+                id="category-prenium"
+                className="options"
+              >
+                <option value="rien">Catégories</option>
+                <option value="scary">Effrayant</option>
+                <option value="suspense">Suspense</option>
+                <option value="thriller">Thriller</option>
+                <option value="romance">Romance</option>
+                <option value="action">Action</option>
+                <option value="comedy">Comédie</option>
+              </select>
+            </h2>
+            <Slider {...settingsPrenium} ref={SlidePrenium}>
+              {filmPreniumArr.map((el) => {
+                return (
+                  <CardNetflixElement
+                    filmInfo={el}
+                    handleSetVideoYoutube={handleSetVideoYoutube}
+                    handleAddToFavorite={handleAddToFavorite}
+                  />
+                );
+              })}
+            </Slider>
+          </div>
+          <div className="arrow-right--slide" onClick={() => gotoNextPrenium()}>
+            <Image src="/arrow-right-netflix.svg" width={50} height={50} />
+          </div>
         </div>
-        <div className="slick-contains">
-          <h2>
-            {" "}
-            Single Item{" "}
-            <select
-              onChange={(e) => {
-                handleFetchCategoryPrenium(e.currentTarget.value);
-              }}
-              id="category-prenium"
-            >
-              <option value="rien">--Catégories--</option>
-              <option value="scary">Scary</option>
-            </select>
-          </h2>
-          <Slider {...settingsPrenium} ref={SlidePrenium}>
-            {filmPreniumArr.map((el) => {
-              return (
-                <CardNetflixElement
-                  filmInfo={el}
-                  handleSetVideoYoutube={handleSetVideoYoutube}
-                  handleAddToFavorite={handleAddToFavorite}
-                />
-              );
-            })}
-          </Slider>
-        </div>
-        <div className="arrow-right--slide" onClick={() => gotoNextPrenium()}>
-          <Image src="/arrow-right-netflix.svg" width={50} height={50} />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

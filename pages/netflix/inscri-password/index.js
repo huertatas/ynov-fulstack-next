@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import router from "next/router";
 import { UserContext } from "../../../context/Context";
+import toast from "react-hot-toast";
 
 function Password() {
   const [password, setPassword] = useState("");
@@ -13,16 +14,21 @@ function Password() {
   console.log(useCtx.mailNetflix);
 
   const handleGotoOptions = () => {
+    if (confirmPassword !== password || !password || !confirmPassword) {
+      toast.error("les mots de passes ne correspondent pas, réessayez");
+      return;
+    }
+
     useCtx.handleSetPasswordNetflix(password);
     router.push("/netflix/choice-options");
   };
 
   return (
     <main className="main-inscription password-inscription">
-      <nav>
+      <nav className="header-inscri">
         <ul className="header--inscription">
           <li>
-            <Image width={50} height={50} src={logoNetflix} />
+            <Image width={100} height={100} src={logoNetflix} />
           </li>
           <li>
             <Link href="/netflix/login">s'identifier</Link>
@@ -31,7 +37,7 @@ function Password() {
       </nav>
       <div className="block--main">
         <div>
-          <h4 className="password--label">titre</h4>
+          <h4 className="password--label">Choisissez votre mot de passe</h4>
           <form className="form-password">
             <input
               type="password"
@@ -44,6 +50,7 @@ function Password() {
               onChange={(e) => setConfirmPassword(e.currentTarget.value)}
             ></input>
             <button
+              className="but"
               onClick={(e) => {
                 e.preventDefault();
                 handleGotoOptions();

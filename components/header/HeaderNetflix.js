@@ -18,6 +18,7 @@ function HeaderNetflix() {
       <div className="div-left-header">
         <Link href="/">
           <Image
+            className="logo-net"
             src="/Netflixlogo.svg"
             alt="Netflix Logo"
             width={90}

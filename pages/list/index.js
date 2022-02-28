@@ -1,19 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import HeaderNetflix from "../../components/header/HeaderNetflix";
-import Slider from "react-slick";
 import { UserContext } from "../../context/Context";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 function List() {
   const [listFavorites, setListFavorites] = useState([]);
-
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-  };
 
   const useCtx = useContext(UserContext);
 
@@ -22,11 +14,13 @@ function List() {
       return;
     }
 
+    const token = useCtx.userToken;
+
     fetch(`${process.env.API_URL}api/v1/users/delete-favorite-film`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        // authorization: `${token}`,
+        authorization: `${token}`,
       },
       body: JSON.stringify({
         id: useCtx.userId,
@@ -34,17 +28,24 @@ function List() {
       }),
     })
       .then(() => {
+        toast.success("film retiré de votre liste");
         handlefetchfavorite();
       })
       .catch((e) => console.log(e.message));
   };
 
   const handlefetchfavorite = () => {
+    if (!useCtx.userToken) {
+      return;
+    }
+
+    const token = useCtx.userToken;
+
     fetch(`${process.env.API_URL}api/v1/users/get-favorite-film`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        // authorization: `${token}`,
+        authorization: `${token}`,
       },
       body: JSON.stringify({ id: useCtx.userId }),
     })
@@ -58,7 +59,7 @@ function List() {
 
   useEffect(() => {
     handlefetchfavorite();
-  }, []);
+  }, [useCtx]);
 
   if (listFavorites === undefined) {
     return (
@@ -75,31 +76,29 @@ function List() {
   return (
     <div className="main-home">
       <HeaderNetflix />
+      <h2 className="list-title">Mes favoris</h2>
       <main className="main--homepage-net list">
-        <div className="slick-contains">
-          <h2>Mes favoris</h2>
-          <Slider {...settings}>
-            {listFavorites.map((el) => {
-              return (
-                <div key={el._id} className="slick-els">
-                  <h3>{el.name}</h3>
-                  <img src={el.image} className="movie-pic" />
-                  <div className="like-watch--contains">
-                    <div
-                      className="back-cta-netflix"
-                      onClick={() => handleDeletefavorite(el._id)}
-                    >
-                      <img
-                        src="https://www.svgrepo.com/show/106039/delete.svg"
-                        width={25}
-                        height={25}
-                      />
-                    </div>
+        <div className="slick-contains list">
+          {listFavorites.map((el) => {
+            return (
+              <div key={el._id} className="slick-els list">
+                <h3>{el.name}</h3>
+                <img src={el.image} className="movie-pic" />
+                <div className="like-watch--contains">
+                  <div
+                    className="back-cta-netflix"
+                    onClick={() => handleDeletefavorite(el._id)}
+                  >
+                    <img
+                      src="https://www.svgrepo.com/show/106039/delete.svg"
+                      width={25}
+                      height={25}
+                    />
                   </div>
                 </div>
-              );
-            })}
-          </Slider>
+              </div>
+            );
+          })}
         </div>
       </main>
     </div>

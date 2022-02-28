@@ -10,33 +10,43 @@ function Inscription() {
   const [mail, setMail] = useState("");
 
   const handleGotoPassword = () => {
+    if (!mail) {
+      return;
+    }
+
     useCtx.handleSetMailNetflix(mail);
     router.push("netflix/inscri-password");
   };
 
   return (
     <main className="main-inscription">
-      <nav>
+      <div className="filter"></div>
+      <nav className="header-inscri">
         <ul className="header--inscription">
           <li>
-            <Image width={50} height={50} src={logoNetflix} />
+            <Image width={100} height={100} src={logoNetflix} />
           </li>
-          <li>
+          <li className="button-inscri-link">
             <Link href="/netflix/login">s'identifier</Link>
           </li>
         </ul>
       </nav>
       <div className="block--main">
         <div>
-          <h2>titre</h2>
-          <h3>titre</h3>
-          <h4>titre</h4>
+          <h2>Films, séries TV et bien plus en illimité.</h2>
+          <h3>Où que vous soyez. Annulez à tout moment.</h3>
+          <h4>
+            Prêt à regarder Netflix ? Saisissez votre adresse e-mail pour vous
+            abonner ou réactiver votre abonnement.
+          </h4>
           <form>
             <input
               onChange={(e) => setMail(e.currentTarget.value)}
-              placeholder="mail"
+              placeholder="adresse email"
+              type="email"
             ></input>
             <button
+            className="but"
               onClick={(e) => {
                 e.preventDefault();
                 handleGotoPassword();

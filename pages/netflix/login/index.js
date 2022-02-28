@@ -12,7 +12,7 @@ function Login() {
   const useCtx = useContext(UserContext);
 
   const handleLogin = () => {
-    if (!mail && !password) {
+    if (!mail || !password) {
       return;
     }
 
@@ -43,19 +43,20 @@ function Login() {
 
   return (
     <main className="main-inscription">
-      <nav>
+      <div className="filter"></div>
+      <nav className="header-inscri">
         <ul className="header--inscription">
           <li>
-            <Image width={50} height={50} src={logoNetflix} />
+            <Image width={100} height={100} src={logoNetflix} />
           </li>
-          <li>
+          <li className="button-inscri-link">
             <Link href="/netflix">s'inscrire</Link>
           </li>
         </ul>
       </nav>
       <div className="block--main login-flex">
         <div className="login">
-          <h2>titre</h2>
+          <h2>S'identifier</h2>
           <form
             onClick={(e) => {
               e.preventDefault();
@@ -65,10 +66,12 @@ function Login() {
           >
             <input
               type="text"
+              placeholder="adresse email"
               onChange={(e) => setMail(e.currentTarget.value)}
             ></input>
             <input
               type="password"
+              placeholder="mot de passe"
               onChange={(e) => setPassword(e.currentTarget.value)}
             ></input>
             <button>connexion</button>

@@ -127,6 +127,10 @@ table {
   border-spacing: 0;
 }
 
+.but {
+  cursor: pointer;
+}
+
 html,
 body {
   padding: 0;
@@ -214,6 +218,12 @@ a {
 
 /* Partie Netflix */
 
+.header-inscri {
+  position: relative;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 .main-inscription {
   height: 100vh;
   width: 100vw;
@@ -222,6 +232,12 @@ a {
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  .filter {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.658);
+    height: 100%;
+    width: 100%;
+  }
 
   &.password-inscription {
     background: none;
@@ -240,26 +256,51 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     &.login-flex {
       align-items: flex-end;
+    }
+    h2 {
+      font-size: 36px;
+    }
+    h3 {
+      font-size: 25px;
+    }
+    h4 {
+      font-size: 20px;
     }
     div {
       height: 70%;
       width: 70%;
-      background-color: aliceblue;
       display: flex;
       flex-direction: column;
       align-items: center;
       row-gap: 5px;
+      color: white;
       &.login {
-        height: 80%;
+        height: 95%;
         width: 60%;
+        max-width: 490px;
+        background-color: rgba(0, 0, 0, 0.767);
+        padding-left: 80px;
+        padding-right: 80px;
+        h2 {
+          display: flex;
+          align-items: center;
+          text-align: left;
+          width: 100%;
+        }
       }
       &.choice {
         height: 90%;
         .choice--details-block {
           height: 20%;
           width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: black;
+          font-size: 30px;
         }
         .choice--options-block {
           height: 50%;
@@ -271,17 +312,55 @@ a {
             height: 100%;
           }
           .choice-options-el {
-            width: 30%;
+            width: 50%;
             height: 100%;
-            border: solid 1px black;
-            &.selected {
-              background-color: aqua;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            .square-type {
+              height: 120px;
+              width: 120px;
+              margin: 15px;
+              margin-bottom: 0px;
+              background-color: rgba(255, 0, 0, 0.445);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: white;
+              &.selected {
+                background-color: rgb(255, 0, 0);
+              }
+            }
+            .line-details {
+              height: 25%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              color: rgba(0, 0, 0, 0.315);
+              &.border {
+                border-bottom: 3px solid rgb(235, 235, 235);
+              }
+              &.selected {
+                color: black;
+              }
             }
           }
         }
         .choice--explenations-block {
           height: 20%;
           width: 100%;
+          display: block;
+          justify-content: center;
+          align-items: center;
+          div {
+            padding-top: 20px;
+            height: 100%;
+            width: 100%;
+            color: black;
+          }
         }
 
         .choice--button-block {
@@ -301,7 +380,9 @@ a {
       h4 {
         height: 25%;
         &.password--label {
-          height: 75%;
+          height: 30%;
+          color: black;
+          font-size: 30px;
         }
       }
       form {
@@ -311,27 +392,75 @@ a {
         &.form-login--flex {
           flex-direction: column;
           align-items: center;
-          row-gap: 10px;
+          width: 100%;
+          height: 50%;
+          justify-content: space-around;
+          input {
+            width: 100%;
+            height: 50px;
+            background-color: rgb(75, 75, 75);
+            border: none;
+            border-radius: 5px;
+            padding-left: 15px;
+            color: white;
+            &::placeholder {
+              color: white;
+            }
+          }
+          button {
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+          }
         }
         &.form-password {
           flex-direction: column;
+          align-items: center;
+          height: 50%;
           input {
             height: 33.3%;
+            margin: 20px;
+            border-radius: 5px;
+            border: 1px solid black;
           }
           button {
-            height: 33.3%;
+            height: 60px;
+            margin-top: 20px;
           }
         }
         input {
           width: 70%;
-          height: 100%;
+          height: 50px;
         }
         button {
           width: 30%;
-          height: 100%;
+          height: 50px;
+          background-color: red;
+          color: white;
+          border: none;
         }
       }
     }
+  }
+}
+
+.ElementsApp input {
+  color: black !important;
+}
+
+.loader {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.808);
+  z-index: 60;
+  .spin-load {
+    width: 20%;
   }
 }
 
@@ -412,7 +541,7 @@ a {
   background-color: black;
   .main--homepage-net {
     height: 95vh;
-    background-image: url("https://occ-0-1723-1722.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABa7Ms8F4BrOsuA_zxQJpYADvq56RUhlAOveiuB-bY6WrqAKDS33GmZcdRXcHXN1DWD_4u5AoI3owy6ZYn1xzdwrUmKBH.jpg?r=5eb");
+    background-image: url("https://occ-0-1722-1723.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABZMIdhnrqhuj2GAhdtkDsIT4LCRPGXNSFa7iAcMJBfv5PkiCoJNojDKQgszJ2VCJXgq4Nogv1AQnbc-4fKknuhnxQRDj.jpg?r=d96");
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -425,6 +554,13 @@ a {
       left: 60px;
       width: 128px;
       height: 37px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      &.compte {
+        position: static;
+        margin: 10px;
+      }
     }
     .img-bck {
       width: 100%;
@@ -448,14 +584,57 @@ a {
       height: 100vh;
       padding-top: 100px;
       background: black;
+      display: flex;
+      flex-direction: column;
+      .contains-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20%;
+      }
+      .admin {
+        height: 80%;
+        form {
+          display: flex;
+          flex-direction: column;
+          h1 {
+            font-size: 25px;
+            margin: 35px;
+            font-weight: bold;
+            color: rgb(238, 0, 0);
+          }
+          input {
+            margin: 15px;
+          }
+          select {
+            margin: 15px;
+          }
+          button {
+            margin: 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            height: 25px;
+            font-weight: bold;
+          }
+        }
+      }
     }
   }
 
   .slick-contains {
-    min-height: 150px;
+    min-height: 323px;
     width: 80%;
     margin: auto;
-
+    padding-top: 80px;
+    overflow: hidden;
+    &.list {
+      overflow-x: visible;
+      display: flex;
+      flex-wrap: wrap;
+      padding-top: 0px;
+    }
     .slick-els {
       min-height: 152px;
       border-radius: 10px;
@@ -468,6 +647,9 @@ a {
       overflow: hidden;
       margin: auto;
       z-index: 5;
+      &.list {
+        margin: 10px;
+      }
       .like-watch--contains {
         position: absolute;
         bottom: 0;
@@ -481,6 +663,7 @@ a {
           padding: 10px;
           background-color: white;
           border-radius: 50%;
+          cursor: pointer;
         }
       }
       .movie-pic {
@@ -494,9 +677,21 @@ a {
   }
 }
 
-// .slick-list {
-//   overflow-y: visible !important;
-// }
+.logo-net {
+  cursor: pointer;
+}
+
+.list-title {
+  margin-top: 80px;
+  color: white;
+  padding-left: 50px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.slick-list {
+  overflow: visible !important;
+}
 
 .container-slide-films {
   display: flex;
@@ -512,6 +707,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     background: linear-gradient(
       270deg,
       rgba(0, 0, 0, 0) 0%,
@@ -526,6 +722,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     background: linear-gradient(
       90deg,
       rgba(0, 0, 0, 0) 0%,
@@ -567,12 +764,80 @@ a {
   position: absolute;
 }
 
+.button-inscri-link {
+  background-color: red;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  &.dir {
+    border: none;
+  }
+}
+
+.option-contains {
+  text-align: end;
+  color: white;
+  padding-right: 15px;
+  .options {
+    border: 1px solid rgb(48, 48, 48);
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background: none;
+    color: white;
+    font-size: 15px;
+    option {
+      color: black;
+    }
+  }
+}
+
+.not-allowed-div {
+  margin-top: 100px;
+  color: white;
+  font-size: 40px;
+  text-align: center;
+}
+
 /* animations */
 
 .scale-in-right {
   -webkit-animation: scale-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     both;
   animation: scale-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.rotate-in-center {
+  -webkit-animation: rotate-in-center 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    infinite both;
+  animation: rotate-in-center 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite
+    both;
+}
+
+@-webkit-keyframes rotate-in-center {
+  0% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes rotate-in-center {
+  0% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes scale-in-right {
