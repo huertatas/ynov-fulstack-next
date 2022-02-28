@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import logoNetflix from "../../../public/NetflixLogo.svg";
 import Image from "next/image";
 import Link from "next/link";
 // import router from "next/router";
@@ -124,7 +123,7 @@ function OptionsRenew() {
       <nav className="header-inscri">
         <ul className="header--inscription">
           <li>
-            <Image width={100} height={100} src={logoNetflix} />
+            <Image width={100} height={100} src="/NetflixLogo.svg" />
           </li>
           <li>
             <Link href="/netflix/login">s&apos;identifier</Link>

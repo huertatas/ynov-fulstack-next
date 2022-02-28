@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import Image from "next/image";
-import logoNetflix from "../../../public/NetflixLogo.svg";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { UserContext } from "../../../context/Context";
@@ -50,7 +49,7 @@ function Login() {
       <nav className="header-inscri">
         <ul className="header--inscription">
           <li>
-            <Image width={100} height={100} src={logoNetflix} />
+            <Image width={100} height={100} src="/NetflixLogo.svg" />
           </li>
           <li className="button-inscri-link">
             <Link href="/netflix">s&apos;inscrire</Link>
