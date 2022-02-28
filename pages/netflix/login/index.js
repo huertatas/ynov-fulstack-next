@@ -49,7 +49,11 @@ function Login() {
       <nav className="header-inscri">
         <ul className="header--inscription">
           <li>
-            <Image width={100} height={100} src="/NetflixLogo.svg" />
+            <img
+              width={100}
+              height={100}
+              src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+            />
           </li>
           <li className="button-inscri-link">
             <Link href="/netflix">s&apos;inscrire</Link>

@@ -17,9 +17,9 @@ function HeaderNetflix() {
     <header className="header--layout">
       <div className="div-left-header">
         <Link href="/">
-          <Image
+          <img
             className="logo-net"
-            src="/Netflixlogo.svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
             alt="Netflix Logo"
             width={90}
             height={50}
