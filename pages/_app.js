@@ -18,7 +18,6 @@ function MyApp({ Component, pageProps }) {
     <ApolloProvider client={client}>
       <Context>
         <Toaster />
-
         <Component {...pageProps} />
       </Context>
     </ApolloProvider>
