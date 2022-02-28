@@ -16,10 +16,11 @@ export const stripePromise = loadStripe(
   "pk_test_51KHlqyAw1gIXHZCzDqsbPPbFIw0pOGB5qOwjJEKGK6U48K2pVggB4eOoDpBk936flMAF6OYZ0J27J8fjkccCJYu800KV1pgGx2"
 );
 
-function Options() {
+function OptionsRenew() {
   const useCtx = useContext(UserContext);
 
   const [load, setLoad] = useState(false);
+  const [mailRenew, setMailRenew] = useState("");
 
   const stripe = useStripe();
   const elements = useElements();
@@ -81,8 +82,8 @@ function Options() {
 
   const handleFinalizeInscription = () => {
     setLoad(true);
-    if (!useCtx.mailNetflix || !useCtx.passwordNetflix) {
-      console.log("un champ est vide");
+    if (!mailRenew || !useCtx.userToken) {
+      toast.error("erreur");
       return;
     }
 
@@ -97,42 +98,15 @@ function Options() {
       typePlan = "prenium";
     }
 
-    const body = {
-      email: useCtx.mailNetflix,
-      password: useCtx.passwordNetflix,
+    let objSub = {
+      plan: planNetflix,
+      payment_method: "",
+      userId: useCtx.userId,
+      mail: mailRenew,
+      type: typePlan,
     };
-
-    fetch(`${process.env.API_URL}api/v1/users/register`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-
-      body: JSON.stringify(body),
-    })
-      .then((res) => {
-        res.json().then((data) => {
-          useCtx.putToken(data.token);
-          useCtx.putUserId(data.id);
-          console.log("idMongo ->", data.id);
-          useCtx.handleSetSubType(data.type_sub);
-          toast.success("Création du compte réussis");
-          let objSub = {
-            plan: planNetflix,
-            payment_method: "",
-            userId: data.id,
-            mail: useCtx.mailNetflix,
-            type: typePlan,
-          };
-          setLoad(false);
-          handleSubscription(data.token, objSub);
-        });
-      })
-      .catch((e) => {
-        setLoad(false);
-        toast.error(e.message);
-        e.message;
-      });
+    setLoad(false);
+    handleSubscription(useCtx.userToken, objSub);
   };
 
   return (
@@ -161,7 +135,7 @@ function Options() {
       <div className="block--main">
         <div className="choice">
           <div className="choice--details-block">
-            Choisissez votre abonnement
+            Renouvellez votre abonnement
           </div>
           <div className="choice--options-block">
             {/* <div className="choice--options-details"></div> */}
@@ -200,6 +174,13 @@ function Options() {
           <div className="choice--explenations-block">
             <CardElement />
           </div>
+          <input
+            className="input-renew"
+            onChange={(e) => {
+              setMailRenew(e.currentTarget.value);
+            }}
+            placeholder="votre adresse mail"
+          ></input>
           <div className="choice--button-block">
             <button
               className="button-inscri-link dir"
@@ -216,14 +197,14 @@ function Options() {
   );
 }
 
-function NetflixFinalizationPage() {
+function NetflixFinalizationPageRenew() {
   return (
     <>
       <Elements stripe={stripePromise}>
-        <Options />
+        <OptionsRenew />
       </Elements>
     </>
   );
 }
 
-export default NetflixFinalizationPage;
+export default NetflixFinalizationPageRenew;

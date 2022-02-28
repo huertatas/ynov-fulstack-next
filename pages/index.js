@@ -5,6 +5,7 @@ import CardNetflixElement from "../components/cardNetflix/CardNetflixElement";
 import Image from "next/image";
 import { UserContext } from "../context/Context";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 export default function Home() {
   const [filmStandardArr, setFilmStandardArr] = useState([]);
@@ -220,7 +221,12 @@ export default function Home() {
     return (
       <div className="main-home">
         <HeaderNetflix />
-        <div className="not-allowed-div">Accès interdit</div>
+        <div className="not-allowed-div">
+          Accès interdit
+          <Link href="/netflix/choice-options-renews">
+            <span className="link-renew">Renouvellez votre abonnement</span>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -277,7 +283,7 @@ export default function Home() {
               id="category-standard"
               className="options"
             >
-              <option value="rien">Catégories</option>
+              <option value="rien">Aucun filtre</option>
               <option value="scary">Effrayant</option>
               <option value="suspense">Suspense</option>
               <option value="thriller">Thriller</option>
@@ -320,7 +326,7 @@ export default function Home() {
                 id="category-prenium"
                 className="options"
               >
-                <option value="rien">Catégories</option>
+                <option value="rien">Aucun filtre</option>
                 <option value="scary">Effrayant</option>
                 <option value="suspense">Suspense</option>
                 <option value="thriller">Thriller</option>

@@ -120,7 +120,7 @@ function Compte() {
               id="type"
               className="options"
             >
-              <option value="rien">Catégories</option>
+              <option value="rien">Type</option>
               <option value="standard">Standard</option>
               <option value="prenium">Prenium</option>
             </select>

@@ -47,7 +47,7 @@ function HeaderNetflix() {
             )}
             {isSearch && (
               <div ref={wrapperRef} className="scale-in-right">
-                <input type="text" placeholder="recherche"></input>
+                <input type="text" placeholder="non fonctionnel désolé"></input>
               </div>
             )}
           </li>

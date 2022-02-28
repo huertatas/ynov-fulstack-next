@@ -38,7 +38,10 @@ function Login() {
           router.push("/");
         });
       })
-      .catch((e) => e.message);
+      .catch((e) => {
+        console.log(e.message);
+        toast.error("échec, veuillez réessayer");
+      });
   };
 
   return (

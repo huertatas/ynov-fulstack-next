@@ -689,6 +689,28 @@ a {
   font-weight: bold;
 }
 
+.input-renew {
+  margin: 15px;
+  border: 1px solid rgb(102, 102, 102);
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  height: 45px;
+  border-radius: 5px;
+  width: 250;
+}
+
+.link-renew {
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  background-color: red;
+  padding: 10px;
+  border-radius: 5px;
+  width: fit-content;
+}
+
 .slick-list {
   overflow: visible !important;
 }
@@ -798,6 +820,9 @@ a {
   color: white;
   font-size: 40px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* animations */
