@@ -70,7 +70,7 @@ function Compte() {
       <main className="main--homepage-net compte">
         <div className="contains-button">
           <button className="button-home compte" onClick={handleUnsubscription}>
-            Annuler l'abonnement
+            Annuler l&apos;abonnement
           </button>
           <button
             className="button-home compte"

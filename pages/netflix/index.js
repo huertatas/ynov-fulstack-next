@@ -27,7 +27,7 @@ function Inscription() {
             <Image width={100} height={100} src={logoNetflix} />
           </li>
           <li className="button-inscri-link">
-            <Link href="/netflix/login">s'identifier</Link>
+            <Link href="/netflix/login">s&apos;identifier</Link>
           </li>
         </ul>
       </nav>

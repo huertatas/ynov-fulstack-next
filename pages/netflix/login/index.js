@@ -53,13 +53,13 @@ function Login() {
             <Image width={100} height={100} src={logoNetflix} />
           </li>
           <li className="button-inscri-link">
-            <Link href="/netflix">s'inscrire</Link>
+            <Link href="/netflix">s&apos;inscrire</Link>
           </li>
         </ul>
       </nav>
       <div className="block--main login-flex">
         <div className="login">
-          <h2>S'identifier</h2>
+          <h2>S&apos;identifier</h2>
           <form
             onClick={(e) => {
               e.preventDefault();

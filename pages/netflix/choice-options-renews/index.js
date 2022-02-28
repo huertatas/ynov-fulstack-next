@@ -67,7 +67,6 @@ function OptionsRenew() {
     })
       .then(async (res) => {
         const recep = await res.json();
-        // mettre token d'abo
         useCtx.putToken(recep.token);
         toast.success(`paiement réussis`);
         setLoad(false);
@@ -128,7 +127,7 @@ function OptionsRenew() {
             <Image width={100} height={100} src={logoNetflix} />
           </li>
           <li>
-            <Link href="/netflix/login">s'identifier</Link>
+            <Link href="/netflix/login">s&apos;identifier</Link>
           </li>
         </ul>
       </nav>
@@ -167,7 +166,7 @@ function OptionsRenew() {
                 60 €
               </div>
               <div className={`line-details ${preniumSelected}`}>
-                Accès au catalogue Netflix ainsi qu'au nouveauté 2022
+                Accès au catalogue Netflix ainsi qu&apos;au nouveauté 2022
               </div>
             </div>
           </div>

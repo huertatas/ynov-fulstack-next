@@ -31,7 +31,7 @@ function Password() {
             <Image width={100} height={100} src={logoNetflix} />
           </li>
           <li>
-            <Link href="/netflix/login">s'identifier</Link>
+            <Link href="/netflix/login">s&apos;identifier</Link>
           </li>
         </ul>
       </nav>
