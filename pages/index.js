@@ -226,7 +226,7 @@ export default function Home() {
           <Link href="/netflix/choice-options-renews">
             <span className="link-renew">Renouvellez votre abonnement</span>
           </Link>
-          <Link href="/netflix/choice-options">
+          <Link href="/netflix">
             <span className="link-renew">Créer un compte</span>
           </Link>
         </div>
