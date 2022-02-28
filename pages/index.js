@@ -95,7 +95,7 @@ export default function Home() {
         console.log(e.message);
         setNotAllowedPrenium(true);
       });
-  });
+  }, []);
 
   const handleFetchPreniumFilm = useCallback(() => {
     const token = useCtx.userToken;
@@ -123,7 +123,7 @@ export default function Home() {
         console.log(e.message);
         setNotAllowedPrenium(true);
       });
-  });
+  }, []);
 
   const gotoNextStandart = () => {
     SlideStandard.current.slickNext();
