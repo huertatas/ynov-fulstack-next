@@ -53,6 +53,11 @@ function Options() {
       card: cardElement,
     });
 
+    if (error) {
+      toast.error("erreur dans vos coordonnés bancaires");
+      return;
+    }
+
     objDetails.payment_method = paymentMethod.id;
 
     fetch(`${process.env.API_URL}api/v1/checkout/subscriptions`, {
@@ -77,8 +82,28 @@ function Options() {
       });
   };
 
-  const handleFinalizeInscription = () => {
+  const handleFinalizeInscription = async () => {
     setLoad(true);
+
+    const cardElement = elements.getElement(CardElement);
+
+    if (cardElement === null) {
+      console.log("pas bon", cardElement);
+      return;
+    }
+
+    // Create Payment Method
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+
+    if (error) {
+      toast.error("erreur dans vos coordonnés bancaires");
+      setLoad(false);
+      return;
+    }
+
     if (!useCtx.mailNetflix || !useCtx.passwordNetflix) {
       console.log("un champ est vide");
       return;
@@ -149,7 +174,11 @@ function Options() {
       <nav className="header-inscri">
         <ul className="header--inscription">
           <li>
-            <img width={100} height={100} src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" />
+            <img
+              width={100}
+              height={100}
+              src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+            />
           </li>
           <li>
             <Link href="/netflix/login">s&apos;identifier</Link>
