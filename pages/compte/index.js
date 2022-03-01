@@ -100,7 +100,7 @@ function Compte() {
             ></input>
             <input
               onChange={(e) => setVideo(e.currentTarget.value)}
-              placeholder="idYoutube (v=id) paramètre query de youtube"
+              placeholder="idYoutube depuis l'url (v=id, mettre seulement ce qui vient après le v=)"
             ></input>
             <select
               onChange={(e) => setCategory(e.currentTarget.value)}
